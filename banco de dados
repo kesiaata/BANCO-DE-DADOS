@@ -1,0 +1,71 @@
+/* Comentário 
+	de bloco
+*/
+-- Comentário de linha
+
+-- Comando para a criação de um banco de dados
+CREATE DATABASE topabem;
+
+-- Selecionando o banco de dados
+USE topabem;
+
+-- Comando para criar a tabela de funcionários
+
+CREATE TABLE tab_funcionarios(
+	id_funcionario INT NOT NULL PRIMARY KEY IDENTITY,
+	nome VARCHAR(50) NOT NULL,
+	profissao VARCHAR(30) NOT NULL,
+	dtnasc DATE NOT NULL,
+	dtcontratacao DATE NOT NULL,
+	estado_civil VARCHAR(10) NOT NULL,
+	dependente VARCHAR(1) NOT NULL,
+	obs VARCHAR(300)
+);
+
+-- Comando para criar a tabela de conjuges
+
+CREATE TABLE tab_conjuges(
+	id_conjuge INT NOT NULL PRIMARY KEY IDENTITY,
+	id_funcionario INT NOT NULL,
+	nome VARCHAR(50) NOT NULL,
+	profissao VARCHAR(30),
+	dtnasc DATE NOT NULL,
+	CONSTRAINT fk_id_funcionario 
+	FOREIGN KEY (id_funcionario)
+	REFERENCES tab_funcionarios(id_funcionario)
+);
+
+--Comando para criar a tabela de dependentes
+
+CREATE TABLE tab_dependentes(
+	id_dependente INT NOT NULL PRIMARY KEY IDENTITY,
+	id_funcionario INT NOT NULL,
+	nome VARCHAR(50) NOT NULL,
+	profissao VARCHAR(30),
+	dtnasc DATE NOT NULL,
+	CONSTRAINT fk_id_funcionario2 
+	FOREIGN KEY (id_funcionario)
+	REFERENCES tab_funcionarios(id_funcionario)
+);
+
+-- Inserindo dados na tabela funcionarios
+
+INSERT INTO tab_funcionarios(
+	nome, profissao, dtnasc, dtcontratacao , estado_civil,
+	dependente, obs) VALUES
+('João da Silva Ribeiro', 'Assistente de produção','','', 'casado', 's', 'O empregaso possui formação na área de gkdhghggh'),
+('Maria Alencar', 'Secretária', '', '', 'casada', 's', ''),
+('Cícero Gonçalves', 'Cozinheiro', '', '', 'casado', 's', '');
+
+-- Comando para visualizar os dados da tabela
+
+
+SELECT * FROM tab_funcionarios;
+
+SELECT nome, profissao FROM tab_funcionarios;
+
+SELECT nome, profissao, estado_civil FROM tab_funcionarios;
+
+SELECT * FROM tab_funcionarios WHERE id_funcionario = 9;
+
+SELECT * FROM tab_funcionarios WHERE estado_civil LIKE 'casad%';
