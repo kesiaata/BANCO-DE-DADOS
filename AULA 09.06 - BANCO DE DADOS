@@ -1,0 +1,114 @@
+USE topabem;
+
+SELECT * FROM tab_funcionarios;
+
+-- Atualizar a data de nascimento de cada funcionário
+UPDATE tab_funcionarios 
+SET dtnasc = '1970-08-10'
+WHERE id_funcionario = 7;
+
+UPDATE tab_funcionarios 
+SET dtnasc = '1985-02-28'
+WHERE id_funcionario = 8;
+
+UPDATE tab_funcionarios 
+SET dtnasc = '1965-04-18'
+WHERE id_funcionario = 9;
+
+SELECT * FROM tab_funcionarios;
+
+-- Atualizar a data de contratação 
+-- de todos os funcionários
+UPDATE tab_funcionarios
+SET dtcontratacao = '2022-06-07';
+
+-- Popular a tabela de conjuges
+INSERT INTO tab_conjuges
+(nome, profissao, dtnasc, id_funcionario)
+VALUES
+('Maria Isabel Cunha Ribeiro', 'Professora', '1974-05-22', 7),
+('Paulo Alencar', 'Vendedor', '1980-09-10', 8),
+('Matilde Gonçalves', 'Cantora', '1962-07-30', 9);
+
+SELECT * FROM tab_conjuges;
+
+-- Popular a tabela de dependentes
+INSERT INTO tab_dependentes
+(nome, dtnasc, id_funcionario)
+VALUES
+('Fernanda Ribeiro', '1998-03-10', 7),
+('Carlos Ribeiro', '2000-07-23', 7),
+('Alberto Alencar', '2014-09-06', 8),
+('Kátia Gonçalves', '1988-10-27', 9);
+
+SELECT * FROM tab_funcionarios;
+SELECT * FROM tab_conjuges;
+SELECT * FROM tab_dependentes;
+
+-- Mostrar o nome do funcionário e seu conjuge
+-- através do id do funcionário (INNER JOIN)
+SELECT tab_funcionarios.nome, 
+       tab_conjuges.nome FROM tab_funcionarios
+INNER JOIN tab_conjuges
+ON tab_funcionarios.id_funcionario = 
+   tab_conjuges.id_funcionario
+WHERE tab_funcionarios.id_funcionario = 7;
+
+-- Mostrar o nome do funcionário, de seu conjuge
+-- e de seus dependentes através do id do funcionário 
+-- (INNER JOIN)
+SELECT tab_funcionarios.nome, 
+       tab_conjuges.nome, 
+	   tab_dependentes.nome FROM tab_funcionarios
+INNER JOIN tab_conjuges
+ON tab_funcionarios.id_funcionario = 
+   tab_conjuges.id_funcionario
+INNER JOIN tab_dependentes
+ON tab_funcionarios.id_funcionario = 
+   tab_dependentes.id_funcionario
+WHERE tab_funcionarios.id_funcionario = 7;
+
+
+-- Adicionar uma coluna na tabela de funcionários
+ALTER TABLE tab_funcionarios
+ADD email VARCHAR(50);
+
+SELECT * FROM tab_funcionarios;
+
+-- Atualizar o campo email dos funcionários
+UPDATE tab_funcionarios
+SET email = 'joao@gmail.com'
+WHERE id_funcionario = 7;
+
+UPDATE tab_funcionarios
+SET email = 'maria@gmail.com'
+WHERE id_funcionario = 8;
+
+UPDATE tab_funcionarios
+SET email = 'cicero@gmail.com'
+WHERE id_funcionario = 9;
+
+SELECT * FROM tab_funcionarios;
+
+-- Remover uma coluna da tabela de dependentes
+ALTER TABLE tab_dependentes
+DROP COLUMN profissao;
+
+SELECT * FROM tab_dependentes;
+
+-- Comando para alterar o nome de uma coluna
+EXEC sp_rename 'tabela.coluna', 'coluna_nova', 'COLUMN';
+
+-- Comando para alterar o tipo de uma coluna
+ALTER TABLE tabela
+ALTER COLUMN fone VARCHAR(15) NOT NULL;
+
+-- Comando para alterar o nome de uma tabela
+EXEC sp_rename 'tab_funcionarios', 'tab_funcionario';
+
+-- Mostrar todas as tabelas do esquema (banco de dados)
+SELECT * FROM INFORMATION_SCHEMA.TABLES;
+
+-- Mostrar nome e email do João
+SELECT nome, email FROM tab_funcionarios
+WHERE id_funcionario = 7;
