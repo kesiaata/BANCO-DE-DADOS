@@ -1,0 +1,385 @@
+USE compras; 
+
+USE pessoas;
+-- Mostre o total de pessoas cadastradas (COUNT())
+SELECT COUNT(nome) AS 'Total de pessoas'
+FROM tab_pessoas;
+
+-- Mostre o total de pessoas por estado, do maior para o menor
+SELECT COUNT(id_pessoa) AS 'Total', estado
+FROM tab_pessoas
+GROUP BY estado
+ORDER BY 'Total' DESC;
+
+-- Mostre o peso da pessoa mais leve (MIN())
+SELECT MIN(peso) AS 'Pessoa mais leve'
+FROM tab_pessoas;
+
+-- Mostre o peso da pessoa mais pesada (MAX())
+SELECT MAX(peso) AS 'Pessoa mais pesada'
+FROM tab_pessoas;
+
+-- Mostre a altura da pessoa mais alta
+SELECT MAX(altura) AS 'Pessoa mais alta'
+FROM tab_pessoas;
+
+-- Mostre a altura da pessoa mais baixa
+SELECT MIN(altura) AS 'Pessoa mais baixa'
+FROM tab_pessoas;
+
+-- Mostre a soma de todos os pesos
+SELECT SUM(peso) AS 'Soma de todos os pesos'
+FROM tab_pessoas;
+
+-- Mostre a soma de todas as alturas
+SELECT SUM(altura) AS 'Soma de todos as alturas'
+FROM tab_pessoas;
+
+-- Mostre a média dos pesos (AVG())
+SELECT AVG(peso) AS 'Média dos pesos'
+FROM tab_pessoas;
+
+-- Mostre todos os estados sem repetir em ordem alfabética
+SELECT DISTINCT estado
+FROM tab_pessoas
+ORDER BY estado;
+
+-- Mostre o nome e estado de todas as pessoas de são paulo
+SELECT nome, estado FROM tab_pessoas
+WHERE estado = 'SP';
+
+-- Mostre o nome e estado de todas as 
+-- pessoas de são paulo e minas gerais
+-- em ordem por estado
+SELECT nome, estado FROM tab_pessoas
+WHERE estado = 'SP' OR estado = 'MG'
+ORDER BY estado;
+
+-- Mostre o nome, estado e a altura de todas 
+-- as pessoas de são paulo 
+-- e com 1.68 de altura
+SELECT nome, estado, altura
+FROM tab_pessoas
+WHERE estado = 'SP' AND altura = 1.68;
+
+-- Mostre o nome, estado e a altura de todas 
+-- as pessoas de são paulo 
+-- ou com 1.78 de altura
+SELECT nome, estado, altura
+FROM tab_pessoas
+WHERE estado = 'SP' OR altura = 1.78;
+
+-- Mostre o nome, estado e o peso de 
+-- todas as pessoas de são paulo com 
+-- 80 kilos
+SELECT  nome, estado, peso
+FROM tab_pessoas
+WHERE estado = 'SP' AND peso = 80;
+
+-- Mostre o nome e o estado de todas 
+-- as pessoas que não são de são paulo 
+-- (use duas formas diferentes)
+SELECT nome , estado
+FROM tab_pessoas
+WHERE NOT estado = 'SP';
+
+SELECT nome , estado
+FROM tab_pessoas
+WHERE estado <> 'SP';
+
+
+
+-- ********************************
+
+CREATE DATABASE compras;
+USE compras;
+CREATE TABLE tab_clientes(
+	id_cliente INT NOT NULL PRIMARY KEY IDENTITY,
+	nome VARCHAR(50) NOT NULL,
+	email VARCHAR(50) NOT NULL,
+	cpf VARCHAR(14) NOT NULL
+);
+CREATE TABLE tab_produtos(
+	id_produto INT NOT NULL PRIMARY KEY IDENTITY,
+	nome VARCHAR(50) NOT NULL,
+	preco DECIMAL(10,2) NOT NULL
+);
+CREATE TABLE tab_pedidos(
+	id_pedido INT NOT NULL PRIMARY KEY IDENTITY,
+	id_cliente INT NOT NULL,
+	data DATE NOT NULL,
+	total DECIMAL(10,2) NULL,
+	CONSTRAINT fk_id_cliente FOREIGN KEY(id_cliente)
+	REFERENCES tab_clientes(id_cliente)
+);
+CREATE TABLE tab_itens_pedido(
+	id_item INT NOT NULL PRIMARY KEY IDENTITY,
+	id_pedido INT NOT NULL,
+	id_produto INT NOT NULL,
+	qtde INT NOT NULL,
+	subtotal DECIMAL(10,2) NOT NULL
+	CONSTRAINT fk_id_pedido FOREIGN KEY (id_pedido)
+	REFERENCES tab_pedidos(id_pedido),
+	CONSTRAINT fk_id_produto FOREIGN KEY (id_produto)
+	REFERENCES tab_produtos(id_produto)
+);
+-- Insira 2 registros na tab_clientes
+INSERT INTO tab_clientes(nome, email, cpf) VALUES
+('João', 'joao@gmail.com', '111.111.111-11'),
+('Maria', 'maria@outlook.com', '222.222.222-22');
+
+-- Insira 10 registros na tab_produtos
+INSERT INTO tab_produtos(nome, preco) VALUES
+('Feijão', 6.00), ('Arroz', 9.00),
+('Macarrão', 6.50), ('Tomate', 5.50),
+('Alface', 3.00), ('Farinha de rosca', 4.30),
+('Sucrilhos', 12.00), ('Requeijão', 6.00),
+('Manteiga', 12.00), ('Guardanapo', 1.00);
+
+-- Insira um pedido para cada cliente 
+-- (com a mesma data de compra)
+INSERT INTO tab_pedidos(id_cliente, data) VALUES
+(1, '2022-06-21'),
+(2, '2022-06-21');
+
+-- Insira 5 registros na tab_itens_pedido 
+-- para cada pedido
+INSERT INTO tab_itens_pedido(id_pedido, id_produto, qtde, subtotal) 
+VALUES
+(1, 1, 2, 12.00), (1, 2, 1, 9.00),
+(1, 3, 3, 19.50), (1, 4, 1, 5.50),
+(1, 5, 2, 6.00),
+
+(2, 1, 1, 6.00), (2, 2, 1, 9.00),
+(2, 6, 1, 4.30), (2, 7, 1, 12.00),
+(2, 9, 1, 12.00);
+
+
+-- Calcular o total dos itens do pedido 1
+SELECT SUM(subtotal) AS Total
+FROM tab_itens_pedido
+WHERE id_pedido = 1;
+
+-- Calcular o total dos itens do pedido 2
+SELECT SUM(subtotal) AS Total
+FROM tab_itens_pedido
+WHERE id_pedido = 2;
+
+-- Altere os dois registros na tab_pedidos com o 
+-- total de cada pedido
+UPDATE tab_pedidos
+SET total = 52.00
+WHERE id_pedido = 1;
+
+UPDATE tab_pedidos
+SET total = 43.30
+WHERE id_pedido = 2;
+
+-- Mostre o nome do cliente, o número de 
+-- seu pedido, os itens que comprou, o valor 
+-- unitário, a data de compra, a quantidade 
+-- comprada, o subtotal e o total da compra
+
+SELECT tab_clientes.nome AS Cliente,
+	   tab_pedidos.id_pedido AS Pedido,
+	   tab_produtos.nome AS Produto,
+	   tab_produtos.preco AS Valor,
+	   tab_pedidos.data AS Data,
+	   tab_itens_pedido.qtde AS Quantidade,
+	   tab_itens_pedido.subtotal AS Subtotal,
+	   tab_pedidos.total AS Total
+FROM tab_clientes INNER JOIN tab_pedidos
+ON tab_clientes.id_cliente = tab_pedidos.id_cliente
+INNER JOIN tab_itens_pedido
+ON tab_itens_pedido.id_pedido = tab_pedidos.id_pedido
+INNER JOIN tab_produtos
+ON tab_produtos.id_produto = tab_itens_pedido.id_produto;
+
+--Motre o total de compras
+SELECT SUM (total) AS 'SOMA TOTAL DE PEDIDOS'FROM tab_pedidos;
+
+	-- insira mais um compra para o cliente com id = 1 com umas data diferente
+	INSERT INTO tab_pedidos(id_cliente, data) VALUES
+	(1,'2022-06-23');
+	INSERT INTO tab_itens_pedido(id_pedido,id_produto,qtde,subtotal)
+	VALUES 
+	(3, 1, 2, 12.00), (3, 2, 2, 18.00), (3, 3, 2, 13.00);
+	SELECT SUM (subtotal) AS total FROM tab_itens_pedido
+	WHERE id_pedido = 3;
+
+	UPDATE tab_pedidos SET total = 43.00
+	WHERE id_pedido = 3;
+
+	--TOTAL D ECOMPRA PELA DATA
+	SELECT SUM (total) AS 'SOMA TOTAL DE COMPRAS 'FROM tab_pedidos
+	WHERE data = '2022-06-21';
+	SELECT SUM (total) AS 'SOMA TOTAL DE COMPRAS 'FROM tab_pedidos
+	WHERE data = '2022-06-23';
+	
+	--Insira uma venda
+	INSERT INTO tab_pedidos(id_cliente, data) VALUES
+	(1,'2022-06-23')
+
+	--Consulto todos os pedidos
+	SELECT * FROM tab_pedidos
+
+
+	SELECT * FROM tab_clientes
+
+	--remover  a última compra
+	DELETE  FROM tab_pedidos
+	WHERE id_pedido = 5;
+
+	DELETE  FROM tab_pedidos
+	WHERE id_pedido = 6;
+
+	-- Remover a compra com Id = 3
+	DELETE FROM tab_pedidos
+	WHERE id_pedido = 3;
+
+	-- Atenção para Remover itens existentes em tabelas  Pais, que contém itens na tabela FILHO, primeiro, 
+	--remove-se os dados da tabela FIlho.
+	-- para depois remover os dados da Tebela Pai
+	DELETE * FROM tab_itens_pedido
+
+	--Consultar tabela de Itens...
+	SELECT * FROM  tab_itens_pedido;
+
+	--Remover Itens do pedido com Id do pedido = 3
+	DELETE FROM tab_itens_pedido
+	WHERE id_pedido = 3;
+
+	----**************************-----
+	CREATE DATABASE locacarros;
+	USE locacarros
+
+	CREATE TABLE tab_fabricantes(id_fabricante INT NOT NULL PRIMARY KEY IDENTITY,
+	nome VARCHAR(50) NOT NULL
+	);
+
+	CREATE TABLE tab_carros(
+		id_carro INT NOT NULL PRIMARY KEY IDENTITY,
+		id_fabricante INT NOT NULL,
+		modelo VARCHAR (50) NOT NULL,
+		ano INT NOT NULL,
+		placa VARCHAR (10) NOT NULL,
+		cor VARCHAR (20) NOT NULL,
+	CONSTRAINT fk_id_fabricante
+	FOREIGN KEY (id_fabricante)
+	REFERENCES  tab_fabricantes(id_fabricante)
+	);
+
+	
+
+
+	CREATE TABLE tab_locacoes(
+	id_locacao INT NOT NULL PRIMARY KEY IDENTITY,
+	id_cliente INT NOT NULL,
+	id_carro   INT NOT NULL,
+	data_locacao DATE NOT NULL,
+	id_deveolucao DATE NULL,
+	valor_diaria DECIMAL (10,2) NOT NULL,
+	total DECIMAL (10,2),
+		CONSTRAINT fk_id_cliente FOREIGN KEY (id_cliente)
+	REFERENCES tab_clientes (id_cliente),
+	CONSTRAINT fk_id_carro FOREIGN KEY (id_carro)
+	REFERENCES tab_carros(id_carro)
+	);
+	--Mostrar todas as tabelas de banco de dados selecionado
+	SELECT * FROM INFORMATION_SCHEMA.TABLES;
+
+	--Inserir os fabricantes
+	INSERT INTO tab_fabricantes(nome) VALUES
+	('Volkswagen'), ('Ford'), ('Fiat');
+
+	--INSERIR 6 REGISTROS NA TABELA DE CARROS
+	INSERT INTO tab_carros(id_fabricante, modelo, ano, placa, cor) VALUES
+	(1, 'Golf GTI 2.0', 2019, 'ABC-1234', 'Prata'),
+	(1, 'Jetta 2.5 20v', 2020, 'DEF-4321', 'Branco'),
+	(2, 'F-250 XL 4.2 V6', 2020, 'KKK-7878','PRETO'),
+	(2, 'FUSION SEL 3.0 V6', 2019,'XLX-7894','BRANCO'),
+	(3, 'Palio 1.8R 4P', 2019, 'TRE-1478', 'CINZA'),
+	(3, 'Linea 1.9 LxP', 2020, 'BAB- 3698', 'Prata'); 
+
+	--Inserir 5 registros na Tabela de clientes
+	INSERT INTO tab_clientes (nome, email, fone) VALUES
+	('João da Silva','Joao@gmail.com','(11)9111-111'),
+	('Maria Aparecida','maria@outlook.com','(11)9222-222'),
+	('Karen de Alberque','karen@gmail.com','(11)9333-3333'),
+	('Pedro Cardoso','pcardoso@uol.com.br','(11)4444-4444'),
+	('Simone de Batima','Batima@gmail.com','(11)9555-5555');
+
+	SELECT * FROM tab_clientes
+
+	--Inserir 3 registros na tabela de locações
+	INSERT INTO tab_locacoes(id_cliente,id_carro,data_locacao,valor_diaria)
+	VALUES
+	(1, 1, '2022-06-20', 250.00),
+	(2, 2, '2022-06-20', 250.00),
+	(3, 3, '2022-06-20', 400.00);
+
+
+	--Mostrar o conteúdo tas tabelas
+	SELECT * FROM tab_fabricantes;	
+	SELECT * FROM tab_carros;
+	SELECT * FROM tab_clientes;
+	SELECT * FROM tab_locacoes;
+
+	-- Atualizar o Id da Locação 3 como Devolução + 3 dias
+ UPDATE tab_locacoes SET id_deveolucao = '2022-06-23'
+ WHERE id_locacao = 3;
+
+ -- Atualizar o toalde id da locacao 2
+ UPDATE tab_locacoes SET total = 1200.00
+ WHERE id_locacao = 3;
+
+ SELECT * FROM tab_locacoes
+
+ -- Atualizar o Id da Locação2 como Devolução + 2 dias
+ UPDATE tab_locacoes SET id_deveolucao = '2022-06-22'
+ WHERE id_locacao = 2;
+
+ -- Atualizar o toalde id da locacao 1
+ UPDATE tab_locacoes SET total = 500.00
+ WHERE id_locacao = 2;
+
+ SELECT * FROM tab_locacoes
+ 
+ 	-- Atualizar o Id da Locação 1 como Devolução + 1 dias
+ UPDATE tab_locacoes SET id_deveolucao = '2022-06-21'
+ WHERE id_locacao = 1;
+
+ -- Atualizar o toalde id da locacao 3
+ UPDATE tab_locacoes SET total = 250.00
+ WHERE id_locacao = 1;
+
+
+ --Mostrar o nome do cliente , o modelo do carro
+ -- do carro, as datas de locação de devolução
+ --e o total que foi pago do cliente de id = 1
+
+ SELECT tab_clientes.nome AS 'cliente' ,
+		tab_carros.modelo AS 'modelo',
+		tab_carros.placa AS 'Placa',
+		tab_locacoes.data_locacao As 'Data locação',
+		tab_locacoes.id_deveolucao AS 'Data de devolução',
+		tab_locacoes.total AS 'total'
+FROM tab_clientes INNER JOIN tab_locacoes
+ON tab_clientes.id_cliente = tab_locacoes.id_cliente
+INNER JOIN tab_carros
+ON tab_locacoes.id_carro = tab_carros.id_carro
+WHERE tab_clientes.id_cliente = 1;
+
+----Mostrar o nome do cliente , o modelo do carro
+ -- do carro, as datas de locação de devolução
+ -- e o total que foi pago de todas as locações
+  SELECT tab_clientes.nome AS 'cliente' ,
+		tab_carros.modelo AS 'modelo',
+		tab_carros.placa AS 'Placa',
+		tab_locacoes.data_locacao As 'Data locação',
+		tab_locacoes.id_deveolucao AS 'Data de devolução',
+		tab_locacoes.total AS 'total'
+FROM tab_clientes INNER JOIN tab_locacoes
+ON tab_clientes.id_cliente = tab_locacoes.id_cliente
+INNER JOIN tab_carros
+ON tab_locacoes.id_carro = tab_carros.id_carro
