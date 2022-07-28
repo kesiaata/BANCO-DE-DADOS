@@ -158,3 +158,39 @@ FROM tab_turmas INNER JOIN tab_alunos ON tab_turmas.id_aluno = tab_alunos.id_alu
 INNER JOIN tab_professores ON tab_professores.id_professor = tab_turmas.id_professor WHERE tab_professores.nome LIKE 'Fábio';
 
 SELECT *FROM vwProfessor;
+
+-------------------------------------------------------------------------------------------------------------------------------------------
+
+--CRIANDO STORED PROCEDURE
+--Stored Procedure, que traduzido significa Procedimento Armazenado, é um conjunto de comandos em SQL que podem ser execultados de uma só vez, como
+--em uma função. Ele armazena tarefas repetitivas e aceita parametros de entrada para que a tarefa seja efetuada de acordo com a necessidade individual.
+
+--As Stored Procedure ficam armazenadas em:
+
+--Seu Bando de Dados
+--Programação
+--Procedimentos Armazenados
+
+
+--Criando uma Stored Procedure para buscar um email de um aluno
+--Declarando a procedure
+CREATE PROCEDURE spBuscaEmailAluno
+--Declarando uma variável - use o @ antes do nome da variável
+@busca VARCHAR(50) AS
+--Consulta
+SELECT *FROM tab_alunos
+--Utilizando a variável como filtro da pesquisa
+WHERE email LIKE @busca;
+
+--Execultando a SP
+EXECUTE spBuscaEmailAluno '%gmail%';
+EXECUTE spBuscaEmailAluno 'fatima@gmail.com';
+
+--Excluindo uma SP
+DROP PROCEDURE spBuscaEmailAluno;
+
+--Criar uma SP para mostrar fone e email de todos os alunos
+CREATE PROCEDURE spMostraFoneEmailAluno AS
+SELECT fone, email FROM tab_alunos;
+
+EXECUTE spMostraFoneEmailAluno;
