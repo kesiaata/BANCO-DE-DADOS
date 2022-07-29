@@ -3,13 +3,9 @@ USE topabem;
 SELECT * FROM tab_funcionarios;
 
 -- Atualizar a data de nascimento de cada funcionário
-UPDATE tab_funcionarios 
-SET dtnasc = '1970-08-10'
-WHERE id_funcionario = 7;
+UPDATE tab_funcionarios SET dtnasc = '1970-08-10' WHERE id_funcionario = 7;
 
-UPDATE tab_funcionarios 
-SET dtnasc = '1985-02-28'
-WHERE id_funcionario = 8;
+UPDATE tab_funcionarios SET dtnasc = '1985-02-28' WHERE id_funcionario = 8;
 
 UPDATE tab_funcionarios 
 SET dtnasc = '1965-04-18'
