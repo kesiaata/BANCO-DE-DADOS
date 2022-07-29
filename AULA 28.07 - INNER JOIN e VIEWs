@@ -27,27 +27,27 @@ SELECT tab_funcionarios.*,--* SIGNIF. TUDO DA TABELA(TODAS AS COLUNAS DA TABELA)
 FROM tab_funcionarios INNER JOIN tab_profissoes ON tab_funcionarios.codigo = tab_profissoes.codigo;
 
 --LEFT JOIN
---Retorna a teabelaA inteira apenas os registros que concidirem com a igualdade do join na tabela B  (ou campos nulos para os campos sem correspondência).
+--Retorna a teabelaA inteira apenas os registros que concidirem com a igualdade do join na tabela B (ou campos nulos para os campos sem correspondência).
 SELECT tab_funcionarios.*,
-		tab_profissoes.*
+	tab_profissoes.*
 FROM tab_funcionarios LEFT JOIN tab_profissoes ON tab_funcionarios.codigo = tab_profissoes.codigo;
 
 --RIGHT JOIN
 --Segue o mesmo raciocinio do Left Join, mas se aplicando à TabelaB em vez da TabelaA.
 SELECT tab_funcionarios.*,
-		tab_profissoes.*
+	tab_profissoes.*
 FROM tab_funcionarios RIGHT JOIN tab_profissoes ON tab_funcionarios.codigo = tab_profissoes.codigo;
 
 --FULL OUTER JOIN (SQL Server)
 --Retorna todos os registros de ambas as tabelas.
 SELECT tab_funcionarios.*,
-		tab_profissoes.*
+	tab_profissoes.*
 FROM tab_funcionarios FULL OUTER JOIN tab_profissoes ON tab_funcionarios.codigo = tab_profissoes.codigo;
 
 --CROSS JOIN
 --Basicamente é o produto cartesiano entre as duas tabelas. Para cada linha de TabelaA, são retornadas todas as linhas da TabelaB.
 SELECT tab_funcionarios.*,
-		tab_profissoes.*
+	tab_profissoes.*
 FROM tab_funcionarios CROSS JOIN tab_profissoes;
 
 
