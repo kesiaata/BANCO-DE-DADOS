@@ -1,5 +1,3 @@
-USE compras; 
-
 USE pessoas;
 -- Mostre o total de pessoas cadastradas (COUNT()).
 SELECT COUNT(nome) AS 'Total de pessoas' FROM tab_pessoas;
