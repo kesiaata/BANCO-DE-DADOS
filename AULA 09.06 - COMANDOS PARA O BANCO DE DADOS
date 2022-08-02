@@ -71,8 +71,7 @@ SELECT * FROM tab_dependentes;
 EXEC sp_rename 'tabela.coluna', 'coluna_nova', 'COLUMN';
 
 -- Comando para alterar o tipo de uma coluna
-ALTER TABLE tabela
-ALTER COLUMN fone VARCHAR(15) NOT NULL;
+ALTER TABLE tabela ALTER COLUMN fone VARCHAR(15) NOT NULL;
 
 -- Comando para alterar o nome de uma tabela
 EXEC sp_rename 'tab_funcionarios', 'tab_funcionario';
