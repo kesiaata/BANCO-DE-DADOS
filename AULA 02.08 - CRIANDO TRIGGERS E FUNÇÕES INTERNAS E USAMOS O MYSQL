@@ -188,6 +188,8 @@ CONSTRAINT fk_id_aluno FOREIGN KEY(id_aluno) REFERENCES tab_aluno(id_aluno),
 CONSTRAINT fk_id_professor FOREIGN KEY(id_professor) REFERENCES tab_professores(id_professor),
 CONSTRAINT fk_id_sala FOREIGN KEY(id_sala) REFERENCES tab_salas(id_sala)
 );
+INSERT INTO tab_alunos(nome, email, fone) VALUES 
+('João', 'joão@gmail.com', '(11) 91234-5678');
 
 
 
