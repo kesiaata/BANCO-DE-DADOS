@@ -32,7 +32,8 @@ CREATE TRIGGER tgr_VendaExcluida
 	SELECT  @var_data = data, @var_valor = valor FROM DELETED
 	UPDATE tab_caixa SET saldo_final = saldo_final - @var_valor
 	WHERE data = @var_data END;
-
+	
+	
 
 --Select nas tabelas.
 SELECT *FROM tab_caixa;
@@ -150,3 +151,44 @@ RETURNS INT AS BEGIN DECLARE @calc AS INT SET @calc = @num1 - @num2 RETURN @calc
 
 --Chamando a função.
 SELECT dbo.Subtracao(50,10);
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------
+
+			DOWLOAND XAMPP(MYSQL) apachefriends.org
+
+
+					***USANDO O MYSQL***
+					
+CREATE DATABASE t18;  execulta
+
+USE t18;
+CREATE TABLE tab_alunos(
+	id_aluno INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    	nome VARCHAR(50) NOT NULL,
+    	email VARCHAR(50) NOT NULL,
+    	fone VARCHAR(15) NOT NULL
+);
+CREATE TABLE tab_professores(
+	id_professor INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    	nome VARCHAR(50) NOT NULL,
+    	email VARCHAR(50) NOT NULL,
+    	fone VARCHAR(15) NOT NULL,
+    	foto VARCHAR(50) NOT NULL,
+    	salario DECIMAL(10,2) NOT NULL
+);
+CREATE TABLE tab_turmas(
+	id_turma INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    	nome VARCHAR(50) NOT NULL,
+    	id_aluno INT NOT NULL,
+    	id_professor INT NOT NULL,
+    	id_sala INT NOT NULL,
+CONSTRAINT fk_id_aluno FOREIGN KEY(id_aluno) REFERENCES tab_aluno(id_aluno),
+CONSTRAINT fk_id_professor FOREIGN KEY(id_professor) REFERENCES tab_professores(id_professor),
+CONSTRAINT fk_id_sala FOREIGN KEY(id_sala) REFERENCES tab_salas(id_sala)
+);
+
+
+
+
