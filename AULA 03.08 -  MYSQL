@@ -33,3 +33,26 @@ GROUP BY tab_vendas.id_vendedor,tab_vendedores.nome;
 	    SUM(tab_vendas.valor) AS 'Total' 
 FROM tab_vendas INNER JOIN tab_vendedores WHERE tab_vendas.id_vendedor = tab_vendedores.id_vendedor 
 GROUP BY tab_vendas.id_vendedor,tab_vendedores.nome;
+
+
+-- Usando o Having
+-- Determina uma condição de busca para um grupo ou um conjunto de registros, definindo criterios para limitar os resultados
+-- obtidos a partir do argumento de registros. Só pode ser usado em parceria com o GROUP BY.
+
+
+-- Mostar o total vendido por vendedor maior ou igual a 1000 e seu nome (Sem o inner join).
+SELECT tab_vendas.id_vendedor AS 'Código',
+	tab_vendedores.nome AS 'Vendedor',
+       	 SUM(tab_vendas.valor) AS 'Total'
+FROM tab_vendas, tab_vendedores WHERE tab_vendas.id_vendedor = tab_vendedores.id_vendedor
+GROUP BY tab_vendas.id_vendedor, tab_vendedores.nome
+HAVING SUM(tab_vendas.valor) >= 2000;
+
+
+-- Mostar o total vendido por vendedor maior ou igual a 1000 e seu nome ( Com o inner join).
+SELECT tab_vendas.id_vendedor AS 'Código',
+	tab_vendedores.nome AS 'Vendedor',
+       	 SUM(tab_vendas.valor) AS 'Total'
+FROM tab_vendas INNER JOIN tab_vendedores WHERE tab_vendas.id_vendedor = tab_vendedores.id_vendedor
+GROUP BY tab_vendas.id_vendedor, tab_vendedores.nome
+HAVING SUM(tab_vendas.valor) >= 2000;
