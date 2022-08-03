@@ -35,7 +35,7 @@ FROM tab_vendas INNER JOIN tab_vendedores WHERE tab_vendas.id_vendedor = tab_ven
 GROUP BY tab_vendas.id_vendedor,tab_vendedores.nome;
 
 
--- Usando o Having
+-- USANDO O HAVING
 -- Determina uma condição de busca para um grupo ou um conjunto de registros, definindo criterios para limitar os resultados
 -- obtidos a partir do argumento de registros. Só pode ser usado em parceria com o GROUP BY.
 
