@@ -1,0 +1,35 @@
+-- Mostrar a quantidade de vendas de cada vendedor e seu nome(Sem inner join) .
+SELECT tab_vendas.id_vendedor,
+	 tab_vendedores.nome,  
+COUNT(tab_vendas.valor) AS 'Quantidade de vendas' 
+FROM tab_vendas, tab_vendedores WHERE tab_vendas.id_vendedor = tab_vendedores.id_vendedor
+GROUP BY tab_vendas.id_vendedor,tab_vendedores.nome;
+
+
+-- Mostrar a quantidade de vendas de cada vendedor e seu nome( Com inner join) .
+SELECT tab_vendas.id_vendedor,
+	 tab_vendedores.nome,  
+COUNT(tab_vendas.valor) AS 'Quantidade de vendas' 
+FROM tab_vendas INNER JOIN  tab_vendedores  WHERE tab_vendas.id_vendedor = tab_vendedores.id_vendedor
+GROUP BY tab_vendas.id_vendedor,tab_vendedores.nome;
+
+
+-- Mostrar o total vendido por vendedor. 
+SELECT tab_vendas.id_vendedor, SUM(tab_vendas.valor) 
+FROM tab_vendas  GROUP BY tab_vendas.id_vendedor;
+
+
+-- Mostrar o total vendido por vendedor e seu nome(sem o inner join).
+ SELECT tab_vendas.id_vendedor  AS 'Código',
+	 tab_vendedores.nome AS 'Nome', 
+	SUM(tab_vendas.valor) AS 'Total  por  Vendedor' 
+FROM tab_vendas, tab_vendedores WHERE tab_vendas.id_vendedor = tab_vendedores.id_vendedor 
+GROUP BY tab_vendas.id_vendedor,tab_vendedores.nome;
+
+
+-- Mostrar o total vendido por vendedor e seu nome(Com inner join).
+ SELECT tab_vendas.id_vendedor AS 'Código',
+	    tab_vendedores.nome AS 'Nome', 
+	    SUM(tab_vendas.valor) AS 'Total' 
+FROM tab_vendas INNER JOIN tab_vendedores WHERE tab_vendas.id_vendedor = tab_vendedores.id_vendedor 
+GROUP BY tab_vendas.id_vendedor,tab_vendedores.nome;
