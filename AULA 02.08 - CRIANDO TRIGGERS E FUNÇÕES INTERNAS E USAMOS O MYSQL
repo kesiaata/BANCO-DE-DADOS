@@ -4,7 +4,7 @@ USE fluxocaixa;
 CREATE TRIGGER tgr_VendaInserida 
 	ON tab_vendas FOR INSERT AS BEGIN 
 	DECLARE @var_valor DECIMAL(10,2),
-			@var_data DATE
+		@var_data DATE
 	SELECT  @var_data = data, @var_valor = valor FROM INSERTED
 	UPDATE tab_caixa SET saldo_final = saldo_final + @var_valor 
 	WHERE data = @var_data END;
@@ -28,7 +28,7 @@ INSERT INTO tab_vendas(data, valor) VALUES
 CREATE TRIGGER tgr_VendaExcluida
 	ON tab_vendas FOR DELETE AS BEGIN
 	DECLARE @var_valor DECIMAL(10,2),
-			@var_data DATE
+		@var_data DATE
 	SELECT  @var_data = data, @var_valor = valor FROM DELETED
 	UPDATE tab_caixa SET saldo_final = saldo_final - @var_valor
 	WHERE data = @var_data END;
