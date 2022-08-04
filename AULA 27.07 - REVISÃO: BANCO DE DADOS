@@ -102,29 +102,29 @@ SELECT numero, capacidade FROM tab_salas WHERE equipamento <> 'MAC';
 
 -- Mostrar os ids e os nomes dos alunos que estão nas turma de SQL. Use rótulos para todas as colunas
 SELECT tab_alunos.id_aluno AS 'Código aluno',
-		tab_alunos.nome AS 'Aluno',
-		tab_turmas.nome AS 'Turmas'
+	tab_alunos.nome AS 'Aluno',
+	tab_turmas.nome AS 'Turmas'
 FROM tab_alunos INNER JOIN tab_turmas ON tab_alunos.id_aluno = tab_turmas.id_aluno 
 WHERE tab_turmas.nome = 'SQL';
 
 -- Mostre o nome do professor e dos alunos da turma de Redes. Use rótulos para todas as colunas
 SELECT tab_professores.nome AS 'Professor',
-		tab_alunos.nome AS 'Alunos',
-		tab_turmas.nome AS 'Turma'
+	tab_alunos.nome AS 'Alunos',
+	tab_turmas.nome AS 'Turma' 
 FROM tab_turmas INNER JOIN tab_alunos ON tab_turmas.id_aluno = tab_alunos.id_aluno 
 INNER JOIN tab_professores ON tab_professores.id_professor = tab_turmas.id_professor 
 WHERE tab_turmas.nome = 'Redes';
 
 -- Mostrar os nomes dos alunos que estão na turma de SQL e C#. Use rótulos para todas as colunas
 SELECT tab_alunos.nome AS 'AlunoS',
-		tab_turmas.nome AS 'Turma'
+	tab_turmas.nome AS 'Turma'
 FROM tab_alunos INNER JOIN tab_turmas ON tab_alunos.id_aluno = tab_turmas.id_aluno
 WHERE tab_turmas.nome = 'SQL' OR  tab_turmas.nome = 'C#';
 
 -- Mostrar os nomes dos alunos que estão com o professor Fábio e o nome do curso. Use rótulos para todas as colunas
 SELECT  tab_alunos.nome AS 'AlunoS',
-		tab_professores.nome AS 'Professor',
-		tab_turmas.nome AS 'Turma'
+	tab_professores.nome AS 'Professor',
+	tab_turmas.nome AS 'Turma'
 FROM tab_alunos INNER JOIN tab_turmas ON tab_alunos.id_aluno = tab_turmas.id_aluno
 INNER JOIN tab_professores ON tab_turmas.id_professor = tab_professores.id_professor
 WHERE tab_professores.nome = 'Fábio';
