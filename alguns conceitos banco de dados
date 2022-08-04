@@ -1,0 +1,30 @@
+				                                      BANCO DE DADOS
+
+
+
+SGBDR --> SÃO SOFTWARES DE GERENCIAMENTO DE BANCO DE DADOS, 
+QUE FACILITAM AS MANIPULAÇOES DAS INFORMAÇÕES DOS DADOS.
+
+BANCO DE DADOS --> SÃO INFORMAÇÕES RELACIONADAS QUE CRIEM ALGUM SENTIDO, 
+SÃO ESTRUTURAS BEM ORGANIZADAS DE DADOS, QUE POSIBILITA A EXTRAÇÃO DE INFORMAÇÃO.
+
+
+
+--TABELAS(ENTIDADES)
+
+CAMPOS --> SÃO OS ATRIBUTOS.
+REGISTROS --> SÃO AS LINHAS.
+
+
+
+COMANDOS DDL = 
+	CREATE - cria uma nova tabela.
+	ALTER - modifica uma tabela.
+	DROP- exclui uma tabela inteira, uma exibição de uma tabela ou um objeto no banco de dados.
+COMANDOS DML = 
+	SELECT- consultar registros especificos de uma ou mais tabelas.
+	INSERT- inserir dados, cria um egistro(linha).	
+	UPDATE- modifica registros.
+	DELETE- exclui registros.
+
+
