@@ -1,66 +1,52 @@
 USE cartoes;
---Mostre todos os dados da tabela clientes ordenados por nome
-SELECT * FROM tab_clientes
-ORDER BY nome ASC;
+--Mostre todos os dados da tabela clientes ordenados por nome.
+SELECT * FROM tab_clientes ORDER BY nome ASC;
 
---Mostre todos os dados da tabela clientes ordenados por nome 
---em ordem decrescente
-SELECT * FROM tab_clientes
-ORDER BY nome DESC;
+--Mostre todos os dados da tabela clientes ordenados por nome em ordem decrescente.
+SELECT * FROM tab_clientes ORDER BY nome DESC;
 
---Mostre o nome e saldo de cada cliente e suas contas
+--Mostre o nome e saldo de cada cliente e suas contas.
 SELECT nome, saldo FROM tab_clientes
-INNER JOIN tab_contas
-ON tab_clientes.id_cliente = tab_contas.id_cliente;
+INNER JOIN tab_contas ON tab_clientes.id_cliente = tab_contas.id_cliente;
 
---Mostre o nome e saldo de cada cliente somente da conta corrente
+--Mostre o nome e saldo de cada cliente somente da conta corrente.
 SELECT nome, saldo FROM tab_clientes
-INNER JOIN tab_contas
-ON tab_clientes.id_cliente = tab_contas.id_cliente
+INNER JOIN tab_contas ON tab_clientes.id_cliente = tab_contas.id_cliente
 WHERE tipo = 'corrente';
 
---Mostre o nome e saldo de cada cliente somente da conta poupança
+--Mostre o nome e saldo de cada cliente somente da conta poupança.
 SELECT nome, saldo FROM tab_clientes
-INNER JOIN tab_contas
-ON tab_clientes.id_cliente = tab_contas.id_cliente
+INNER JOIN tab_contas ON tab_clientes.id_cliente = tab_contas.id_cliente
 WHERE tipo = 'poupança';
 
---Mostre a soma do total de conta corrente de todos os clientes
+--Mostre a soma do total de conta corrente de todos os clientes.
 SELECT SUM(saldo) AS 'Total de conta corrente'
-FROM tab_contas
-WHERE tipo = 'corrente';
+FROM tab_contas WHERE tipo = 'corrente';
 
---Mostre a soma do total de conta poupanca de todos os clientes
+--Mostre a soma do total de conta poupanca de todos os clientes.
 SELECT SUM(saldo) AS 'Total de conta poupança'
-FROM tab_contas
-WHERE tipo = 'poupança';
+FROM tab_contas WHERE tipo = 'poupança';
 
---Mostre a soma do total de todas as contas de todos os clientes
+--Mostre a soma do total de todas as contas de todos os clientes.
 SELECT SUM(saldo) AS 'Total de conta poupança'
 FROM tab_contas;
 
---Mostre nome e o saldo de conta poupanca de cada cliente 
---convertido em dólar
-SELECT nome, (saldo / 5.10) AS 'Saldo da poupança convertido em dólar'
-FROM tab_clientes
-INNER JOIN tab_contas
-ON tab_clientes.id_cliente = tab_contas.id_cliente
+--Mostre nome e o saldo de conta poupanca de cada cliente convertido em dólar.
+SELECT nome, (saldo / 5.10) AS 'Saldo da poupança convertido em dólar' FROM tab_clientes
+INNER JOIN tab_contasON tab_clientes.id_cliente = tab_contas.id_cliente
 WHERE tab_contas.tipo = 'poupança';
 
---Mostre nome e o saldo de conta poupanca de cada cliente 
---convertido em euro
-SELECT nome, (saldo / 5.30) AS 'Saldo da poupança convertido em euro'
-FROM tab_clientes
-INNER JOIN tab_contas
-ON tab_clientes.id_cliente = tab_contas.id_cliente
+--Mostre nome e o saldo de conta poupanca de cada cliente convertido em euro.
+SELECT nome, (saldo / 5.30) AS 'Saldo da poupança convertido em euro' FROM tab_clientes
+INNER JOIN tab_contasON tab_clientes.id_cliente = tab_contas.id_cliente
 WHERE tab_contas.tipo = 'poupança';
 
---Mostre os 3 clientes com maior saldo de conta corrente
+--Mostre os 3 clientes com maior saldo de conta corrente.
 SELECT TOP 3 nome, saldo FROM tab_clientes
 INNER JOIN tab_contas ON tab_clientes.id_cliente = tab_contas.id_cliente
 WHERE tab_contas.tipo = 'corrente' ORDER BY tab_contas.saldo DESC;
 
---Mostre os 3 clientes com menor saldo de conta corrente
+--Mostre os 3 clientes com menor saldo de conta corrente.
 SELECT TOP 3 nome, saldo FROM tab_clientes
 INNER JOIN tab_contas ON tab_clientes.id_cliente = tab_contas.id_cliente
 WHERE tab_contas.tipo = 'corrente' ORDER BY tab_contas.saldo ASC;
@@ -69,10 +55,6 @@ WHERE tab_contas.tipo = 'corrente' ORDER BY tab_contas.saldo ASC;
 
 
 --**********************************************
-
-
-
-
 
 
 CREATE DATABASE pessoas;
@@ -102,7 +84,7 @@ INSERT INTO tab_pessoas(nome, dt_nasc, peso, altura, estado) VALUES
 ('Cristiane', '1979-06-17',		67, 1.70, 'MG'),
 ('Miguel',	'1991-06-06',		87, 1.90, 'SP');
 
--- Mostre o ano atual
+-- Mostre o ano atual.
 SELECT YEAR(GETDATE());
 -- Mostre o mês atual
 SELECT MONTH(GETDATE());
@@ -113,16 +95,15 @@ SELECT CONCAT(DAY(GETDATE()),'/',
               MONTH(GETDATE()), '/', 
 			  YEAR(GETDATE())) AS 'Data atual';
 
--- Mostre a idade de cada pessoa;
+-- Mostre a idade de cada pessoa.
 SELECT nome, (YEAR(GETDATE()) - YEAR(dt_nasc)) AS Idade
 FROM tab_pessoas;
 
--- Mostre a média de idade de todas as pessoas
-SELECT AVG((YEAR(GETDATE()) - YEAR(dt_nasc))) 
-AS 'Média das idades'
+-- Mostre a média de idade de todas as pessoas.
+SELECT AVG((YEAR(GETDATE()) - YEAR(dt_nasc))) AS 'Média das idades'
 FROM tab_pessoas;
 
--- Mostre somente as pessoas que tem idade superior à média
+-- Mostre somente as pessoas que tem idade superior à média.
 SELECT YEAR(GETDATE()) - YEAR(dt_nasc) AS Idade
 FROM tab_pessoas
 WHERE YEAR(GETDATE()) - YEAR(dt_nasc) > 
