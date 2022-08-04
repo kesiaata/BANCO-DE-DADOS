@@ -76,11 +76,11 @@ EXECUTE spMostraFoneEmailProfessores;
 
 ------------------------------------------------------------------------------------------------------------------------------------
 
---Trigger é como uma função que é disparada mediante alguma ação. Geralmente essas ações que disparam os triggers são alterações nas tabelas por meio
---de operações de inserção, exclusão e atualização de dados(INSERT, DELETE, UPDATE).
+--Trigger é como uma função que é disparada mediante alguma ação. Geralmente essas ações que disparam os triggers são 
+--alterações nas tabelas por meio de operações de inserção, exclusão e atualização de dados(INSERT, DELETE, UPDATE).
 
---Vamos a um exemplo prático, criaremos um controle de fluxo de caixa de uma loja, onde a cada venda inserida na tabela de caixa, o mesmo acontecerá
---quando removermos a venda.
+--Vamos a um exemplo prático, criaremos um controle de fluxo de caixa de uma loja, onde a cada venda inserida na tabela 
+--de caixa, o mesmo acontecerá quando removermos a venda.
 
 CREATE DATABASE fluxocaixa;
 USE fluxocaixa;
