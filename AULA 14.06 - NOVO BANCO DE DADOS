@@ -133,14 +133,14 @@ SELECT * FROM tab_contas;
 SELECT * FROM tab_cartoes;
 
 --Mostrar o nome dos clientes e o saldo de suas contas
-SELECT nome, saldo, tipo FROM tab_clientes INNER JOIN tab_contas
-ON tab_clientes.id_cliente = tab_contas.id_cliente;
+SELECT nome, saldo, tipo FROM tab_clientes 
+INNER JOIN tab_contas ON tab_clientes.id_cliente = tab_contas.id_cliente;
 
 --Mostrar o nome dos clientes e seus telefones
-SELECT nome, fone FROM tab_clientes INNER JOIN tab_fones
-ON tab_clientes.id_cliente = tab_fones.id_cliente;
+SELECT nome, fone FROM tab_clientes 
+INNER JOIN tab_fones ON tab_clientes.id_cliente = tab_fones.id_cliente;
 
 --Mostrar o nome, saldo e fones de todos os clientes
-SELECT nome, saldo, fone FROM tab_clientes INNER JOIN tab_contas
-ON tab_clientes.id_cliente = tab_contas.id_cliente
+SELECT nome, saldo, fone FROM tab_clientes 
+INNER JOIN tab_contas ON tab_clientes.id_cliente = tab_contas.id_cliente
 INNER JOIN tab_fones ON tab_clientes.id_cliente = tab_fones.id_cliente;
