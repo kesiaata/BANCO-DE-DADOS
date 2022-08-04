@@ -50,9 +50,7 @@ CREATE TABLE tab_dependentes(
 
 -- Inserindo dados na tabela funcionarios
 
-INSERT INTO tab_funcionarios(
-	nome, profissao, dtnasc, dtcontratacao , estado_civil,
-	dependente, obs) VALUES
+INSERT INTO tab_funcionarios(nome, profissao, dtnasc, dtcontratacao , estado_civil, dependente, obs) VALUES
 ('João da Silva Ribeiro', 'Assistente de produção','','', 'casado', 's', 'O empregaso possui formação na área de gkdhghggh'),
 ('Maria Alencar', 'Secretária', '', '', 'casada', 's', ''),
 ('Cícero Gonçalves', 'Cozinheiro', '', '', 'casado', 's', '');
