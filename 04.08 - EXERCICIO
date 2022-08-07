@@ -68,6 +68,21 @@ SELECT FROM tab_pais WHERE expectativa_vida < 70;
 SELECT nome, populacao, pib FROM tab_pais WHERE pib > 10000;   <--*****ERREIIII!!*****
 
 
+                            	*****CORRETO*****
+			   
+SELECT tab_cidades.nome, 
+	tab_paises.populacao,
+	tab_cidades.capital
+FROM tab_cidades INNER JOIN tab_paises ON tab_cidades.id_pais = tab_paises.id_pais WHERE pib > 10000 AND capital = 'S';
+
+				*****OU*****
+
+SELECT tab_cidades.nome, 
+	tab_paises.populacao
+FROM tab_cidades INNER JOIN tab_paises ON tab_cidades.id_pais = tab_paises.id_pais
+WHERE tab_paises.pib > 10000 AND tab_cidades.capital = 'S';
+
+
 8)
 SELECT nome, populacao FROM tab_cidades WHERE pais = 'USA';
 
@@ -92,7 +107,7 @@ SELECT nome FROM tab_pais WHERE pib > 658;
 
 
 
-				                                                                	PROFESSOR
+				                 ***** PROFESSOR*****
 
 
 
