@@ -61,8 +61,7 @@ SELECT nome, capital FROM tab_cidades WHERE capital = 'S';
 
 
 6) 
-SELECTFROM tab_pais WHERE expectativa_vida < 70;
-
+SELECT FROM tab_pais WHERE expectativa_vida < 70;
 
 
 7) 
