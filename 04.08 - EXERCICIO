@@ -3,17 +3,17 @@ USE mundo;
 CREATE TABLE tab_pais(
 	id_pais INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     	nome VARCHAR(50) NOT NULL,
-   	 continenteVARCHAR(50) NOT NULL,
-    	populacao DECIMAL(10,2) NOT NULL,
-    	pib INT  NOT NULL,
-	expectativa_vida DECIMAL(10,2) NOT NULL
+   	continente VARCHAR(50) NOT NULL,
+    	populacao FLOAT NOT NULL,
+    	pib FLOAT NOT NULL,
+	expectativa_vida FLOAT NOT NULL
 );
  CREATE TABLE tab_cidades(
 	id_cidade INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-   	 id_pais INT NOT NULL,
+   	id_pais INT NOT NULL,
     	nome VARCHAR(50) NOT NULL,
-   	 pais VARCHAR(50) NOT NULL,
-    	populacao DECIMAL(10,2) NOT NULL,
+   	pais VARCHAR(50) NOT NULL,
+    	populacao FLOAT NOT NULL,
     	capital VARCHAR(2) NOT NULL,
  CONSTRAINT fk_id_pais FOREIGN KEY (id_pais) REFERENCES tab_pais(id_pais)
 );
@@ -23,8 +23,8 @@ CREATE TABLE tab_pais(
 	nome VARCHAR(50) NOT NULL,
    	nascente VARCHAR(10) NOT NULL,
    	pais VARCHAR(10) NOT NULL,
-    comprimento DECIMAL(10,2) NOT NULL,
- CONSTRAINT fk_id_pais FOREIGN KEY (id_pais) REFERENCES tab_pais(id_pais)
+    	comprimento FLOAT NOT NULL,
+ CONSTRAINT fk_id_pais2 FOREIGN KEY (id_pais) REFERENCES tab_pais(id_pais)
 );
 
 
@@ -36,20 +36,20 @@ INSERT INTO tab_pais(nome, continente, populacao, pib, expectativa_vida) VALUES
 ('USA', 'América do Norte', 270.0, 8003, 75.5);
 
 
- INSERT INTO tab_cidades( nome, pais, populacao, capital) VALUES
-('Washington ', 'USA', 3.3, 'S'),
-('Monterrey', 'México', 2.0, 'N'),
-('Brasilia', 'Brasil', 1.5, 'S'),
-('São Paulo', 'Brasil', 15.0 , 'N'),
-('Ottawa ', 'Canada', 0.8, 'S'),
-('Cidade do México', 'México', 14.1, 'S');
+ INSERT INTO tab_cidades(id_pais, nome, pais, populacao, capital) VALUES
+(4, 'Washington ', 'USA', 3.3, 'S'),
+(2, 'Monterrey', 'México', 2.0, 'N'),
+(3, 'Brasilia', 'Brasil', 1.5, 'S'),
+(3, 'São Paulo', 'Brasil', 15.0 , 'N'),
+(1, 'Ottawa ', 'Canada', 0.8, 'S'),
+(2, 'Cidade do México', 'México', 14.1, 'S');
 
 
-INSRT INTO tab_rios(nome, nascente, pais, comprimento) VALUES
-('St. Lawrence',  'USA',  'USA',  3.3),
-('Grande',  'USA',  'México',  2.0),
-('Paraná',  'Brasil',  'Brasil',  1.5),
-('Mississipi', ' USA',  'USA',  15.0);
+INSRT INTO tab_rios(id_pais, nome, nascente, pais, comprimento) VALUES
+(4, 'St. Lawrence',  'USA',  'USA',  3.3),
+(2, 'Grande',  'USA',  'México',  2.0),
+(3, 'Paraná',  'Brasil',  'Brasil',  1.5),
+(4, 'Mississipi', ' USA',  'USA',  15.0);
 
 
 4) 
@@ -112,7 +112,7 @@ CREATE TABLE tab_paises(
 );
 
 CREATE TABLE tab_cidades(
-	id_cidade	 INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	id_cidadE INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
 	nome VARCHAR(50) NOT NULL,
 	id_pais INT NOT NULL,
 	populacao FLOAT NOT NULL,
