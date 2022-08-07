@@ -65,7 +65,7 @@ SELECT FROM tab_pais WHERE expectativa_vida < 70;
 
 
 7) 
-SELECT nome, populacao, pib FROM tab_pais WHERE pib > 10000;
+SELECT nome, populacao, pib FROM tab_pais WHERE pib > 10000;   <--*****ERREIIII!!*****
 
 
 8)
