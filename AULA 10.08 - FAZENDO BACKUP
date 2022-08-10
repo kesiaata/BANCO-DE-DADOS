@@ -1,0 +1,16 @@
+USE escola;
+
+-- Para fazer um backup no SQL Server
+BACKUP DATABASE escola TO DISK = 'C:\backup\escola.bak';
+
+-- Apagar o banco de dados escola
+USE master; 
+DROP DATABASE escola;
+
+-- Restaurar o banco de dados quando não existe no servidor
+RESTORE DATABASE escola FROM DISK = 'C:\backup\escola.bak';
+
+-- Substituir o banco de dados existente no servidor
+RESTORE DATABASE escola FROM DISK = 'C:\backup\escola.bak' WITH REPLACE;
+
+USE escola;
